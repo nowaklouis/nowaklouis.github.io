@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Typed from "typed.js";
 
-const words = ["DEV", "WEB", "JAVASCRIPT"];
+const words = ["DEV", "WEB", "JAVASCRIPT", "PHP"];
 
-class Typing extends React.Component {
-  componentDidMount() {
+export default function Typing() {
+  const el = useRef(null);
+  const typed = useRef(null);
+
+  useEffect(() => {
     const options = {
       strings: words,
       typeSpeed: 50,
@@ -12,23 +15,15 @@ class Typing extends React.Component {
       loop: true,
       cursorChar: "|",
     };
-    // this.el refers to the <span> in the render() method
-    this.typed = new Typed(this.el, options);
-  }
-  componentWillUnmount() {
-    // Please don't forget to cleanup animation layer
-    this.typed.destroy();
-  }
 
-  render() {
-    return (
-      <span
-        style={{ whiteSpace: "pre", color: "#CC8B65" }}
-        ref={(el) => {
-          this.el = el;
-        }}
-      />
-    );
-  }
+    // Initialise Typed.js
+    typed.current = new Typed(el.current, options);
+
+    // Cleanup à la destruction du composant
+    return () => {
+      typed.current.destroy();
+    };
+  }, []);
+
+  return <span style={{ whiteSpace: "pre", color: "#CC8B65" }} ref={el} />;
 }
-export default Typing;

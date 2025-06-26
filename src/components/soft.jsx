@@ -1,73 +1,57 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+import React from "react";
 
 export default function Soft() {
   return (
-    <>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-          <FormGroup>
-            <FormControlLabel
-              control={<Checkbox checked name="Communication" />}
-              label="Communication"
-              sx={{ color: "primary.light" }}
-            />
-            <FormControlLabel
-              control={<Checkbox checked name="Autonomie" />}
-              label="Autonomie"
-              sx={{ color: "primary.light" }}
-            />
-            <FormControlLabel
-              control={<Checkbox checked name="Flexibilité" />}
-              label="Flexibilité"
-              sx={{ color: "primary.light" }}
-            />
-            <FormControlLabel
-              control={<Checkbox checked name="Respect" />}
-              label="Respect"
-              sx={{ color: "primary.light" }}
-            />
-            <FormControlLabel
-              control={<Checkbox checked name="Organisé" />}
-              label="Organisé"
-              sx={{ color: "primary.light" }}
-            />
-          </FormGroup>
-        </FormControl>
-        <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-          <FormGroup>
-            <FormControlLabel
-              control={<Checkbox checked name="Collaboration" />}
-              label="Collaboration"
-              sx={{ color: "primary.light" }}
-            />
-            <FormControlLabel
-              control={<Checkbox checked name="Auto-Formation" />}
-              label="Formation"
-              sx={{ color: "primary.light" }}
-            />
-            <FormControlLabel
-              control={<Checkbox checked name="Adaptabilité" />}
-              label="Adaptabilité"
-              sx={{ color: "primary.light" }}
-            />
-            <FormControlLabel
-              control={<Checkbox checked name="Ecoute" />}
-              label="Ecoute"
-              sx={{ color: "primary.light" }}
-            />
-            <FormControlLabel
-              control={<Checkbox checked name="Persévérant" />}
-              label="Persévérant"
-              sx={{ color: "primary.light" }}
-            />
-          </FormGroup>
-        </FormControl>
-      </Box>
-    </>
+    <div className="flex justify-center flex-wrap gap-12 p-6">
+      <fieldset className="m-3">
+        <div className="space-y-3">
+          <label className="flex items-center space-x-3 text-cyan-400">
+            <input type="checkbox" checked readOnly className="w-5 h-5" />
+            <span>Communication</span>
+          </label>
+          <label className="flex items-center space-x-3 text-cyan-400">
+            <input type="checkbox" checked readOnly className="w-5 h-5" />
+            <span>Autonomie</span>
+          </label>
+          <label className="flex items-center space-x-3 text-cyan-400">
+            <input type="checkbox" checked readOnly className="w-5 h-5" />
+            <span>Flexibilité</span>
+          </label>
+          <label className="flex items-center space-x-3 text-cyan-400">
+            <input type="checkbox" checked readOnly className="w-5 h-5" />
+            <span>Respect</span>
+          </label>
+          <label className="flex items-center space-x-3 text-cyan-400">
+            <input type="checkbox" checked readOnly className="w-5 h-5" />
+            <span>Organisé</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset className="m-3">
+        <div className="space-y-3">
+          <label className="flex items-center space-x-3 text-cyan-400">
+            <input type="checkbox" checked readOnly className="w-5 h-5" />
+            <span>Collaboration</span>
+          </label>
+          <label className="flex items-center space-x-3 text-cyan-400">
+            <input type="checkbox" checked readOnly className="w-5 h-5" />
+            <span>Formation</span>
+          </label>
+          <label className="flex items-center space-x-3 text-cyan-400">
+            <input type="checkbox" checked readOnly className="w-5 h-5" />
+            <span>Adaptabilité</span>
+          </label>
+          <label className="flex items-center space-x-3 text-cyan-400">
+            <input type="checkbox" checked readOnly className="w-5 h-5" />
+            <span>Ecoute</span>
+          </label>
+          <label className="flex items-center space-x-3 text-cyan-400">
+            <input type="checkbox" checked readOnly className="w-5 h-5" />
+            <span>Persévérant</span>
+          </label>
+        </div>
+      </fieldset>
+    </div>
   );
 }

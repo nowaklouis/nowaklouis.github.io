@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import Link from "@mui/material/Link";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
-import { Box, Typography, Card, Button } from "@mui/material";
-import CardMedia from "@mui/material/CardMedia";
 import { useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Pagination from "./Pagination";
 
 const InfoProjet = [
   {
@@ -69,120 +63,48 @@ export default function Projets() {
     setProjetR(p);
   };
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-  }, []);
-
-  const slideLeft = (elem, delay, duration) => {
-    gsap.fromTo(
-      elem,
-      {
-        opacity: 0,
-        x: -200,
-      },
-      {
-        opacity: 1,
-        x: 0,
-        scrollTrigger: {
-          trigger: elem,
-          start: "top center",
-          end: "bottom center",
-        },
-      }
-    );
-  };
-  useEffect(() => {
-    slideLeft(".sect3");
-  }, []);
-
   return (
-    <Box
-      className="sect3"
-      id="Projet"
-      sx={{ paddingTop: "60px", zIndex: "10" }}
-    >
-      <Typography variant="h1" color="info.main" sx={{ textAlign: "center" }}>
+    <div id="Projet" className="pt-[60px] relative z-10 sect3">
+      <h1 className="text-4xl text-cyan-400 text-center mb-16">
         Projet JavaScript
-      </Typography>
-      <Box
-        sx={{ display: "flex", justifyContent: "center", paddingTop: "5rem" }}
-      >
-        <Stack spacing={2}>
+      </h1>
+
+      <div className="flex justify-center">
+        <div className="flex flex-col gap-8 items-center">
           {InfoProjet.filter((result) => result.id === projetR).map(
             (projet, id) => (
-              <Box key={id} sx={{ display: "flex", justifyContent: "center" }}>
-                <Card
-                  sx={{
-                    background: "rgba(0, 0, 0, 0.1)",
-                    width: { xs: "95%", md: "60%" },
-                    display: { md: "flex", sx: "none" },
-                  }}
-                >
-                  <Box>
-                    <Typography variant="h2" sx={{ p: "1.5rem" }}>
-                      {projet?.name}
-                    </Typography>
-                    <Typography>{projet?.base}</Typography>
-                    <Typography>Créer: {projet?.date}</Typography>
-                    <Typography sx={{ paddingTop: "10px" }}>
-                      {projet?.description}
-                    </Typography>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        paddingTop: "2rem",
-                      }}
-                    >
-                      <Button
-                        variant="contained"
-                        color="info"
-                        sx={{ width: "20rem" }}
+              <div key={id} className="flex justify-center w-full">
+                <div className="bg-black/10 w-[95%] md:w-[60%] flex flex-col md:flex-row rounded-lg overflow-hidden shadow-lg">
+                  <div className="flex-1 p-6 text-white">
+                    <h2 className="text-2xl font-bold mb-2">{projet?.name}</h2>
+                    <p className="mb-1">{projet?.base}</p>
+                    <p className="mb-3">Créer: {projet?.date}</p>
+                    <p className="pt-2">{projet?.description}</p>
+                    <div className="flex justify-center pt-8">
+                      <a
+                        href={projet?.link}
+                        className="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-6 rounded transition"
                       >
-                        <Link href={projet?.link}> Un Apercu ?</Link>
-                      </Button>
-                    </Box>
-                  </Box>
-                  <CardMedia
-                    component="img"
-                    sx={{ width: 300, p: "10px" }}
-                    image={projet?.img}
+                        Un Aperçu ?
+                      </a>
+                    </div>
+                  </div>
+                  <img
+                    src={projet?.img}
                     alt="projets"
+                    className="w-[300px] p-2 object-cover"
                   />
-                </Card>
-              </Box>
+                </div>
+              </div>
             )
           )}
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <Pagination
-              count={5}
-              shape="rounded"
-              color="info"
-              onChange={handleChange}
-            />
-          </Box>
-        </Stack>
-      </Box>
-      {/* <Typography
-        variant="h1"
-        color="info.main"
-        sx={{ textAlign: "center", paddingTop: "5rem" }}
-      >
-        Projet PHP
-      </Typography>
-      <Box
-        sx={{ display: "flex", justifyContent: "center", paddingTop: "5rem" }}
-      >
-        <Stack spacing={2}>
-          <Typography>A Venir..</Typography>
-          <Pagination
-            count={5}
-            shape="rounded"
-            color="info"
-            onChange={someChange}
-          />
-        </Stack>
-      </Box> */}
-    </Box>
+
+          <div className="flex justify-center mt-4">
+            {/* Si tu utilises une pagination custom */}
+            <Pagination count={5} onChange={handleChange} />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -1,70 +1,21 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
 import Typing from "../components/typing";
-import { useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function AboutMe() {
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-  }, []);
-  const slideLeft = (elem, delay, duration) => {
-    gsap.fromTo(
-      elem,
-      {
-        opacity: 0,
-        x: -200,
-      },
-      {
-        opacity: 1,
-        x: 0,
-        scrollTrigger: {
-          trigger: elem,
-          start: "top center",
-          end: "bottom center",
-        },
-      }
-    );
-  };
-  useEffect(() => {
-    slideLeft(".sect1");
-  }, []);
-
   return (
-    <Box
+    <div
       id="Presentation"
-      sx={{
-        marginTop: { xs: "50px", md: "20rem" },
-        display: "flex",
-        justifyContent: "center",
-      }}
+      className="mt-[50px] md:mt-[20rem] flex justify-center"
     >
-      <Card
-        className="sect1"
-        sx={{
-          display: { md: "flex" },
-          justifyContent: "center",
-          width: { md: "60%", xs: "95%" },
-          background: "rgba(0, 0, 0, 0.1)",
-        }}
-      >
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <CardContent sx={{ flex: "1 0 auto" }}>
-            <Typography color="info.main" component="div" variant="h5">
+      <div className="sect1 bg-black/10 w-[95%] md:w-[60%] flex flex-col md:flex-row rounded-lg overflow-hidden shadow-lg text-white">
+        <div className="flex flex-col justify-between">
+          <div className="p-6 flex-1">
+            <h2 className="text-cyan-400 text-2xl font-semibold mb-2">
               NOWAK Louis
-            </Typography>
+            </h2>
+
             <Typing />
-            <Typography
-              color="primary"
-              component="div"
-              variant="h5"
-              sx={{ paddingTop: "1.5rem" }}
-            >
+
+            <p className="text-white text-lg pt-6">
               Le web, le code : j’en ai fait une vraie passion. C’est cette
               passion qui m’a poussé à me former à la Wild Code School, une
               expérience formatrice tant sur le plan technique que personnel.
@@ -72,13 +23,9 @@ export default function AboutMe() {
               frameworks, la gestion d’API avec Node.js, ainsi que le travail en
               équipe sur des projets React, le tout dans un workflow structuré
               avec GitHub.
-            </Typography>
-            <Typography
-              color="primary"
-              component="div"
-              variant="h5"
-              sx={{ paddingTop: "1.5rem" }}
-            >
+            </p>
+
+            <p className="text-white text-lg pt-6">
               J’ai ensuite poursuivi mon parcours en alternance au CESI de
               Strasbourg, où j’ai eu l’opportunité de travailler pendant un an
               chez Cirpé. Cette expérience en entreprise m’a permis de mettre en
@@ -88,19 +35,19 @@ export default function AboutMe() {
               le cadre de mon Master. Curieux, organisé et persévérant, je suis
               prêt à m’investir pleinement pour devenir un véritable atout au
               sein de votre équipe.
-            </Typography>
-          </CardContent>
-          <Box
-            sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}
-          ></Box>
-        </Box>
-        <CardMedia
-          component="img"
-          sx={{ width: 500, height: 500, p: "10px" }}
-          image="/intro.png"
+            </p>
+          </div>
+
+          {/* Optional footer */}
+          <div className="flex items-center pl-2 pb-2"></div>
+        </div>
+
+        <img
+          src="/intro.png"
           alt="Live from Time"
+          className="w-[500px] h-[500px] p-2 object-cover"
         />
-      </Card>
-    </Box>
+      </div>
+    </div>
   );
 }

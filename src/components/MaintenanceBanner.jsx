@@ -1,32 +1,28 @@
-import React from "react";
-import { Alert, AlertTitle, IconButton, Collapse } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import React, { useState } from "react";
 
 export default function MaintenanceBanner() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
+
+  if (!open) return null;
 
   return (
-    <Collapse in={open}>
-      <Alert
-        severity="warning"
-        icon={false}
-        action={
-          <IconButton
-            aria-label="close"
-            color="inherit"
-            size="small"
-            onClick={() => setOpen(false)}
-          >
-            <CloseIcon fontSize="inherit" />
-          </IconButton>
-        }
-        sx={{ borderRadius: 0, justifyContent: "center", textAlign: "center" }}
-      >
-        <AlertTitle>
-          <strong>⚠️ Site en cours de mise à jour</strong>
-        </AlertTitle>
+    <div
+      className="bg-yellow-400 text-yellow-900 px-4 py-3 rounded-none flex justify-center items-center text-center relative"
+      role="alert"
+    >
+      <strong className="font-bold mr-2">
+        ⚠️ Site en cours de mise à jour
+      </strong>
+      <span>
         Certaines sections peuvent ne pas être finalisées ou accessibles.
-      </Alert>
-    </Collapse>
+      </span>
+      <button
+        onClick={() => setOpen(false)}
+        aria-label="close"
+        className="absolute right-2 top-2 text-yellow-900 hover:text-yellow-700 focus:outline-none"
+      >
+        &#x2715; {/* croix simple */}
+      </button>
+    </div>
   );
 }

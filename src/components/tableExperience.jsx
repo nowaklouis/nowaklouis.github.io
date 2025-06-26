@@ -1,87 +1,76 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Tab from "@mui/material/Tab";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
-import Typography from "@mui/material/Typography";
+import React, { useState } from "react";
 import Hard from "./Hard";
 import Soft from "./soft";
-import { useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function LabTabs() {
-  const [value, setValue] = React.useState("1");
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-  }, []);
+  const [value, setValue] = useState("1");
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (newValue) => {
     setValue(newValue);
   };
 
-  const slideLeft = (elem, delay, duration) => {
-    gsap.fromTo(
-      elem,
-      {
-        opacity: 0,
-        x: 200,
-      },
-      {
-        opacity: 1,
-        x: 0,
-        scrollTrigger: {
-          trigger: elem,
-          start: "top center",
-          end: "bottom center",
-        },
-      }
-    );
-  };
-  useEffect(() => {
-    slideLeft(".sect2");
-  }, []);
-
   return (
     <div className="sect2">
-      <Typography
+      <h1
         id="Experience"
-        variant="h1"
-        color="info.main"
-        sx={{ display: "flex", justifyContent: "center", paddingTop: "5rem" }}
+        className="text-cyan-400 text-center pt-20 text-5xl font-bold"
       >
         Expérience
-      </Typography>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          paddingTop: "2rem",
-          zIndex: "10",
-        }}
-      >
-        <Box sx={{ width: { md: "60%", xs: "95%" } }}>
-          <TabContext value={value}>
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-              <TabList
-                centered
-                onChange={handleChange}
-                aria-label="lab API tabs example"
-              >
-                <Tab label="Hard Skills" value="1" />
-                <Tab label="Soft Skills" value="2" />
-              </TabList>
-            </Box>
-            <TabPanel value="1">
-              <Hard />
-            </TabPanel>
-            <TabPanel value="2">
-              <Soft />
-            </TabPanel>
-          </TabContext>
-        </Box>
-      </Box>
+      </h1>
+
+      <div className="flex justify-center pt-8 z-10">
+        <div className="w-[95%] md:w-3/5">
+          {/* Tabs */}
+          <div className="border-b border-gray-600 mb-6 flex justify-center space-x-10">
+            <button
+              onClick={() => handleChange("1")}
+              className={`pb-2 text-lg font-semibold ${
+                value === "1"
+                  ? "border-b-4 border-cyan-400 text-cyan-400"
+                  : "text-gray-400 hover:text-cyan-300"
+              }`}
+              aria-selected={value === "1"}
+              role="tab"
+              id="tab-hard"
+              aria-controls="tabpanel-hard"
+            >
+              Hard Skills
+            </button>
+            <button
+              onClick={() => handleChange("2")}
+              className={`pb-2 text-lg font-semibold ${
+                value === "2"
+                  ? "border-b-4 border-cyan-400 text-cyan-400"
+                  : "text-gray-400 hover:text-cyan-300"
+              }`}
+              aria-selected={value === "2"}
+              role="tab"
+              id="tab-soft"
+              aria-controls="tabpanel-soft"
+            >
+              Soft Skills
+            </button>
+          </div>
+
+          {/* Panels */}
+          <div
+            role="tabpanel"
+            id="tabpanel-hard"
+            aria-labelledby="tab-hard"
+            hidden={value !== "1"}
+          >
+            <Hard />
+          </div>
+          <div
+            role="tabpanel"
+            id="tabpanel-soft"
+            aria-labelledby="tab-soft"
+            hidden={value !== "2"}
+          >
+            <Soft />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

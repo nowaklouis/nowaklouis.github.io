@@ -1,72 +1,47 @@
-import * as React from "react";
-import { Box, Typography, CardMedia } from "@mui/material";
-import FormControl from "@mui/material/FormControl";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import gsap from "gsap";
+import React from "react";
 
 export default function Hard() {
+  const skillsGroup1 = [
+    { name: "react", label: "React" },
+    { name: "nodejs", label: "Node.js" },
+    { name: "mysql", label: "MySQL" },
+    { name: "html5", label: "HTML5" },
+    { name: "github", label: "GitHub" },
+  ];
+
+  const skillsGroup2 = [
+    { name: "nextjs", label: "Next.js" },
+    { name: "expressjs", label: "Express.js" },
+    { name: "sequelize", label: "Sequelize" },
+    { name: "css", label: "CSS / MUI" },
+    { name: "agile", label: "Méthode Agile" },
+  ];
+
+  const renderCheckboxes = (skills) =>
+    skills.map(({ name, label }) => (
+      <label
+        key={name}
+        className="flex items-center space-x-3 text-cyan-400 cursor-pointer"
+      >
+        <input
+          type="checkbox"
+          name={name}
+          defaultChecked
+          className="w-5 h-5 text-cyan-500 bg-gray-700 border-gray-600 rounded focus:ring-cyan-400"
+          readOnly
+        />
+        <span>{label}</span>
+      </label>
+    ));
+
   return (
-    <Box sx={{ display: "flex", justifyContent: "center" }}>
-      <FormControl sx={{ m: 3 }} variant="standard">
-        <FormGroup>
-          <FormControlLabel
-            control={<Checkbox checked name="react" />}
-            label="React"
-            sx={{ color: "primary.light" }}
-          />
-          <FormControlLabel
-            control={<Checkbox checked name="Node.js" />}
-            label="Node.js"
-            sx={{ color: "primary.light" }}
-          />
-          <FormControlLabel
-            control={<Checkbox checked name="Mysql" />}
-            label="MySQL"
-            sx={{ color: "primary.light" }}
-          />
-          <FormControlLabel
-            control={<Checkbox checked name="Html" />}
-            label="HTML5"
-            sx={{ color: "primary.light" }}
-          />
-          <FormControlLabel
-            control={<Checkbox checked name="GitHub" />}
-            label="GitHub"
-            sx={{ color: "primary.light" }}
-          />
-        </FormGroup>
-      </FormControl>
-      <FormControl sx={{ m: 3 }} variant="standard">
-        <FormGroup>
-          <FormControlLabel
-            control={<Checkbox checked name="next" />}
-            label="Next.js"
-            sx={{ color: "primary.light" }}
-          />
-          <FormControlLabel
-            control={<Checkbox checked name="Express.js" />}
-            label="Express.js"
-            sx={{ color: "primary.light" }}
-          />
-          <FormControlLabel
-            control={<Checkbox checked name="Sequelize" />}
-            label="Sequelize"
-            sx={{ color: "primary.light" }}
-          />
-          <FormControlLabel
-            control={<Checkbox checked name="CSS" />}
-            label="CSS / MUI"
-            sx={{ color: "primary.light" }}
-          />
-          <FormControlLabel
-            control={<Checkbox checked name="agile" />}
-            label="Methode Agile"
-            sx={{ color: "primary.light" }}
-          />
-        </FormGroup>
-      </FormControl>
-    </Box>
+    <div className="flex justify-center space-x-12 p-6">
+      <div className="flex flex-col space-y-4">
+        {renderCheckboxes(skillsGroup1)}
+      </div>
+      <div className="flex flex-col space-y-4">
+        {renderCheckboxes(skillsGroup2)}
+      </div>
+    </div>
   );
 }
