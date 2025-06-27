@@ -1,6 +1,12 @@
+import Typing from "../components/typing";
+
 export default function Resume() {
   return (
     <div className="max-w-3xl mx-auto my-12 p-6 bg-[rgb(11,72,59)] bg-opacity-10 rounded-3xl shadow-lg text-center text-white">
+      <div className="my-3">
+        <Typing />
+      </div>
+
       <p className="text-lg leading-relaxed mb-4">
         Développeur web passionné et polyvalent, je suis à la recherche d’une
         alternance pour mon Master afin de continuer à progresser au contact de

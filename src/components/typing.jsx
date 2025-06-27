@@ -16,14 +16,22 @@ export default function Typing() {
       cursorChar: "|",
     };
 
-    // Initialise Typed.js
     typed.current = new Typed(el.current, options);
 
-    // Cleanup à la destruction du composant
     return () => {
       typed.current.destroy();
     };
   }, []);
 
-  return <span style={{ whiteSpace: "pre", color: "#CC8B65" }} ref={el} />;
+  return (
+    <span
+      style={{
+        whiteSpace: "pre",
+        color: "#CC8B65",
+        fontSize: "2rem",
+        fontWeight: "bold",
+      }}
+      ref={el}
+    />
+  );
 }

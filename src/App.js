@@ -1,5 +1,4 @@
 import React from "react";
-import AboutMe from "./components/aboutMe.jsx";
 import Intro from "./components/intro.jsx";
 import Projet from "./components/Projet.jsx";
 import TableExperience from "./components/tableExperience.jsx";
@@ -27,7 +26,6 @@ function App() {
         <div className="mt-32">
           <Chrono />
         </div>
-        <AboutMe />
         <TableExperience />
         <Projet />
       </div>
