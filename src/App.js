@@ -6,6 +6,7 @@ import { HelmetProvider } from "react-helmet-async";
 import MaintenanceBanner from "./components/MaintenanceBanner.jsx";
 import Resume from "./components/resume.jsx";
 import Chrono from "./components/Chrono.jsx";
+import Soft from "./components/soft.jsx";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Chrono />
         </div>
         <TableExperience />
+        <Soft />
         <Projet />
       </div>
     </>

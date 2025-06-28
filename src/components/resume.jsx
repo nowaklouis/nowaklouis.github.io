@@ -14,12 +14,12 @@ export default function Resume() {
         technologies et relever des défis variés.
       </p>
 
-      <div className="mt-6 flex justify-center gap-6">
+      <div className="mt-6 flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
         <a
           href="/Nowak Louis CV_.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block bg-[#013328] border-2 border-[#CC8B65] text-[#CC8B65] font-semibold py-2 px-6 rounded-full mt-6 transition hover:bg-[#CC8B65] hover:text-green-700"
+          className="inline-block bg-[#013328] border-2 border-[#CC8B65] text-[#CC8B65] font-semibold py-2 px-6 sm:px-6 sm:py-2 px-4 py-1 text-sm sm:text-base rounded-full transition hover:bg-[#CC8B65] hover:text-green-700"
         >
           Voici mon CV
         </a>
@@ -28,7 +28,7 @@ export default function Resume() {
           href="/LR_Dumont.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block bg-[#013328] border-2 border-[#CC8B65] text-[#CC8B65] font-semibold py-2 px-6 rounded-full mt-6 ml-4 transition hover:bg-[#CC8B65] hover:text-green-700"
+          className="inline-block bg-[#013328] border-2 border-[#CC8B65] text-[#CC8B65] font-semibold py-2 px-6 sm:px-6 sm:py-2 px-4 py-1 text-sm sm:text-base rounded-full transition hover:bg-[#CC8B65] hover:text-green-700"
         >
           Recommandation
         </a>
