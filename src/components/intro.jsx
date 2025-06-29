@@ -1,14 +1,19 @@
-import { useRef } from "react";
+import { motion } from "framer-motion";
+import { fadeInLeft, fadeInRight } from "./animations.jsx";
 
 export default function Intro() {
-  const titleRef = useRef();
-
   return (
     <div
       id="intro"
-      className="flex flex-col md:flex-row items-center justify-center pt-32 px-4 bg-[#013328] text-white gap-6"
+      className="flex flex-col md:flex-row items-center justify-center pt-32 px-4 text-white gap-6"
     >
-      <div className="w-full md:w-1/2 flex justify-center">
+      {/* IMAGE AVEC ANIMATION */}
+      <motion.div
+        variants={fadeInLeft}
+        initial="initial"
+        animate="animate"
+        className="w-full md:w-1/2 flex justify-center"
+      >
         <div className="max-w-xs md:max-w-sm">
           <img
             src="/ma-photo.png"
@@ -16,10 +21,15 @@ export default function Intro() {
             className="w-full h-auto"
           />
         </div>
-      </div>
+      </motion.div>
 
-      {/* TEXTE EN DEUXIÈME */}
-      <div className="text-center md:text-left max-w-xl">
+      {/* TEXTE EN DEUXIÈME AVEC ANIMATION */}
+      <motion.div
+        variants={fadeInRight}
+        initial="initial"
+        animate="animate"
+        className="text-center md:text-left max-w-xl"
+      >
         <h3 className="text-3xl mb-2">Enchanté, moi c’est</h3>
         <h1 className="text-5xl font-bold text-[#CC8B65] mb-4">Louis Nowak</h1>
         <h4 className="text-xl mb-4">
@@ -32,7 +42,7 @@ export default function Intro() {
             href="https://www.linkedin.com/in/louis-nowak/"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-5 py-2 border-2 border-[#CC8B65] text-[#CC8B65] rounded-full hover:bg-[#CC8B65] hover:text-white transition"
+            className="px-5 py-2 border-2 border-[#CC8B65] text-[#CC8B65] rounded-full hover:bg-[#CC8B65] hover:text-white transition flex items-center"
           >
             <svg
               className="w-5 h-5 mr-2"
@@ -47,7 +57,7 @@ export default function Intro() {
             href="https://github.com/nowaklouis"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-5 py-2 border-2 border-[#CC8B65] text-[#CC8B65] rounded-full hover:bg-[#CC8B65] hover:text-white transition"
+            className="px-5 py-2 border-2 border-[#CC8B65] text-[#CC8B65] rounded-full hover:bg-[#CC8B65] hover:text-white transition flex items-center"
           >
             <svg
               className="w-5 h-5 mr-2"
@@ -59,7 +69,7 @@ export default function Intro() {
             GitHub
           </a>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

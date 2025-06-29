@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { fadeInUpOther, staggerContainer } from "./animations";
 
 const categories = {
   front: [
@@ -213,10 +215,16 @@ export default function SkillsGrid() {
       </div>
 
       <div className="flex flex-col md:flex-row gap-8 items-start">
-        <div className="flex flex-wrap gap-4 w-full max-w-xl">
-          {currentSkills.map((skill) => (
-            <div
+        <motion.div
+          variants={staggerContainer}
+          initial="initial"
+          animate="animate"
+          className="flex flex-wrap gap-4 w-full max-w-xl"
+        >
+          {currentSkills.map((skill, index) => (
+            <motion.div
               key={skill.id}
+              variants={fadeInUpOther}
               onClick={() => setSelectedSkill(skill)}
               className={`cursor-pointer w-22 h-22 sm:w-22 sm:h-22 rounded-full overflow-hidden border-2 transition flex items-center justify-center ${
                 selectedSkill?.id === skill.id
@@ -231,9 +239,9 @@ export default function SkillsGrid() {
                 draggable={false}
                 style={{ transform: `scale(${skill.zoom || 1})` }}
               />
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         <div className="hidden md:flex w-1/2 min-h-[200px] p-6 border border-[#CC8B65] rounded-3xl bg-[rgb(11,72,59)]">
           {selectedSkill ? (

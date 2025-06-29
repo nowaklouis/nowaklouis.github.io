@@ -11,7 +11,7 @@ export default function Pagination({ count, page, onChange }) {
           onClick={() => onChange(p)}
           className={`px-3 py-1 rounded ${
             p === page
-              ? "bg-blue-600 text-white"
+              ? "bg-[rgb(11,72,59)] text-white"
               : "bg-gray-200 text-gray-700 hover:bg-gray-300"
           }`}
         >

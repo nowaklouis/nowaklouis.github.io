@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import Pagination from "./Pagination";
+import React, { useRef } from "react";
+import { motion } from "framer-motion";
 
 const InfoProjet = [
   {
@@ -61,64 +60,141 @@ const InfoProjet = [
     description:
       "SkillSwap est une plateforme d’échange de compétences entre utilisateurs. Chacun peut proposer un savoir-faire, chercher un besoin et entrer en contact avec d'autres membres.",
     link: `https://github.com/nowaklouis/SkillSwap`,
-    img: "/Wild Food Fact.png", // à changer plus tard
+    img: "/skillswap.png",
   },
 ];
 
 export default function Projets() {
-  const [projetR, setProjetR] = useState(1); // commence au projet 1
+  const scrollRef = useRef(null);
 
-  const handleChange = (page) => {
-    setProjetR(page); // met à jour le projet à afficher
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+
+  const handleMouseDown = (e) => {
+    const slider = scrollRef.current;
+    if (!slider) return;
+
+    isDragging.current = true;
+    startX.current = e.pageX - slider.offsetLeft;
+    scrollLeft.current = slider.scrollLeft;
+
+    document.addEventListener("mouseup", handleMouseUp);
+    document.addEventListener("mousemove", handleMouseMove);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging.current) return;
+    e.preventDefault();
+    const slider = scrollRef.current;
+    if (!slider) return;
+
+    const x = e.pageX - slider.offsetLeft;
+    const walk = (x - startX.current) * 1.5;
+    slider.scrollLeft = scrollLeft.current - walk;
+  };
+
+  const handleMouseUp = () => {
+    isDragging.current = false;
+    document.removeEventListener("mouseup", handleMouseUp);
+    document.removeEventListener("mousemove", handleMouseMove);
   };
 
   return (
-    <div id="Projet" className="pt-[60px] relative z-10 sect3">
-      <h2 className="text-3xl font-bold text-[#CC8B65] text-center mb-6">
+    <section id="Projet" className="pt-20 pb-20 rounded-3xl">
+      <h2 className="text-3xl font-bold text-[#CC8B65] text-center mb-12">
         Projets
       </h2>
 
-      <div className="flex justify-center">
-        <div className="flex flex-col gap-8 items-center">
-          {InfoProjet.filter((result) => result.id === projetR).map(
-            (projet) => (
-              <div key={projet.id} className="flex justify-center w-full">
-                <div className="bg-black/10 w-[95%] md:w-[60%] flex flex-col md:flex-row rounded-lg overflow-hidden shadow-lg">
-                  <div className="flex-1 p-6 text-white">
-                    <h2 className="text-2xl font-bold mb-2">{projet.name}</h2>
-                    <p className="mb-1">{projet.base}</p>
-                    <p className="mb-3">Créer : {projet.date}</p>
-                    <p className="pt-2">{projet.description}</p>
-                    <div className="flex justify-center pt-8">
-                      <a
-                        href={projet.link}
-                        className="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-6 rounded transition"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Un Aperçu ?
-                      </a>
-                    </div>
-                  </div>
-                  <img
-                    src={projet.img}
-                    alt={projet.name}
-                    className="w-[300px] p-2 object-cover"
-                  />
-                </div>
-              </div>
-            )
-          )}
-
-          <div className="flex justify-center mt-4">
-            <Pagination
-              count={InfoProjet.length}
-              page={projetR}
-              onChange={handleChange}
+      <div
+        ref={scrollRef}
+        onMouseDown={handleMouseDown}
+        className="flex gap-6 px-6 cursor-grab active:cursor-grabbing overflow-x-auto no-scrollbar"
+        style={{
+          WebkitOverflowScrolling: "touch",
+          // empêcher scroll vertical
+          overflowY: "hidden",
+          // hauteur auto pour ne pas couper les cartes
+          height: "auto",
+        }}
+      >
+        {InfoProjet.map((projet, index) => (
+          <motion.div
+            key={projet.id}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1, type: "spring" }}
+            viewport={{ once: true }}
+            className="min-w-[280px] max-w-[280px] bg-white/10 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all shrink-0"
+          >
+            <img
+              src={projet.img}
+              alt={projet.name}
+              className="w-full h-[160px] object-cover"
             />
-          </div>
-        </div>
+            <div className="p-4 text-white">
+              <h3 className="text-lg font-bold text-[#CC8B65]">
+                {projet.name}
+              </h3>
+              <p className="text-sm italic">{projet.base}</p>
+              <p className="text-xs mb-2">📅 {projet.date}</p>
+              <p className="text-sm mb-4 line-clamp-4">{projet.description}</p>
+              <a
+                href={projet.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block text-xs border-2 border-[#CC8B65] text-[#CC8B65] px-3 py-1 rounded-full hover:bg-[#CC8B65] hover:text-green-950 transition"
+              >
+                Voir GitHub
+              </a>
+            </div>
+          </motion.div>
+        ))}
       </div>
-    </div>
+
+      {/* CSS custom scrollbar */}
+      <style jsx>{`
+        .no-scrollbar {
+          scrollbar-width: thin;
+          scrollbar-color: #cc8b65 transparent;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+          height: 8px;
+        }
+        .no-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .no-scrollbar::-webkit-scrollbar-thumb {
+          background-color: #cc8b65;
+          border-radius: 4px;
+          border: 2px solid transparent;
+          background-clip: content-box;
+        }
+        /* Masquer scrollbar verticale */
+        .no-scrollbar::-webkit-scrollbar:vertical {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none; /* IE and Edge */
+          scrollbar-width: none; /* Firefox */
+        }
+        .no-scrollbar::-webkit-scrollbar {
+          display: none; /* Safari and Chrome */
+        }
+        /* Mais on remet la scrollbar horizontale visible */
+        @media (hover: hover) {
+          .no-scrollbar {
+            scrollbar-width: thin;
+          }
+          .no-scrollbar::-webkit-scrollbar {
+            display: block;
+            height: 8px;
+          }
+          .no-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #cc8b65;
+          }
+        }
+      `}</style>
+    </section>
   );
 }

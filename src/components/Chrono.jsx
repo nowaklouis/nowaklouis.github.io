@@ -15,7 +15,7 @@ import {
 
 export default function Chrono() {
   return (
-    <div className="bg-[#013328] py-16 px-4">
+    <div className="py-16 px-4">
       <h2 className="text-center text-4xl font-bold text-[#CC8B65] mb-12">
         Mon Parcours
       </h2>

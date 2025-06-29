@@ -1,14 +1,84 @@
-import React from "react";
+import React, { useState } from "react";
 import Intro from "./components/intro.jsx";
 import Projet from "./components/Projet.jsx";
 import TableExperience from "./components/tableExperience.jsx";
 import { HelmetProvider } from "react-helmet-async";
-import MaintenanceBanner from "./components/MaintenanceBanner.jsx";
 import Resume from "./components/resume.jsx";
 import Chrono from "./components/Chrono.jsx";
 import Soft from "./components/soft.jsx";
+import Footer from "./components/Footer.jsx";
+import DesignPatterns from "./components/DesignPattern.jsx";
+import MesMotivations from "./components/Motivations.jsx";
+import VeilleTechno from "./components/VeilleTechno.jsx";
+import ProcessusDeveloppement from "./components/Processus.jsx";
+
+// MatrixEffect component : canvas en fond (à mettre dans ce fichier ou mieux dans un fichier à part)
+function MatrixEffect() {
+  React.useEffect(() => {
+    const canvas = document.getElementById("matrixCanvas");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    const letters = "0123456789ABCDEF".split("");
+    const fontSize = 16;
+    let columns = Math.floor(width / fontSize);
+    let drops = Array(columns).fill(1);
+
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; // fond transparent semi-opaque pour traînées
+      ctx.fillRect(0, 0, width, height);
+      ctx.fillStyle = "#0F0"; // vert Matrix
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    const interval = setInterval(draw, 50);
+
+    function onResize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      columns = Math.floor(width / fontSize);
+      drops = Array(columns).fill(1);
+    }
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      id="matrixCanvas"
+      className="fixed top-0 left-0 w-full h-full z-0 pointer-events-none"
+      style={{ backgroundColor: "transparent" }}
+    />
+  );
+}
 
 function App() {
+  const [isDark, setIsDark] = useState(true);
+  const [isMatrix, setIsMatrix] = useState(false); // état mode Matrix, false par défaut
+
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+  };
+
+  const bgClass = isDark ? "bg-[#013328]" : "bg-[#78c08f]";
+
   return (
     <>
       <HelmetProvider>
@@ -18,18 +88,77 @@ function App() {
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
         <link rel="icon" href="/favicon.png" />
       </HelmetProvider>
-      <div className="min-h-screen p-4 bg-[#013328] bg-cover bg-fixed">
-        <MaintenanceBanner />
-        <Intro />
-        <div className="mt-32">
-          <Resume />
+
+      <div
+        className={`min-h-screen p-4 ${bgClass} bg-cover bg-fixed transition-colors duration-500 relative`}
+      >
+        {/* Matrix effect en fond */}
+        {isMatrix && <MatrixEffect />}
+
+        {/* Toggle petit en haut à gauche */}
+        <div className="absolute top-4 left-4 flex items-center space-x-2 cursor-pointer select-none z-10">
+          {/* Soleil (clair) */}
+          <svg
+            onClick={() => setIsDark(false)}
+            xmlns="http://www.w3.org/2000/svg"
+            className={`w-6 h-6 ${
+              !isDark ? "text-[#CC8B65]" : "text-white/50 hover:text-white"
+            }`}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+            role="button"
+            aria-label="Mode clair"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0l-1.414-1.414M7.05 7.05L5.636 5.636M12 8a4 4 0 100 8 4 4 0 000-8z"
+            />
+          </svg>
+
+          {/* Lune (sombre) */}
+          <svg
+            onClick={() => setIsDark(true)}
+            xmlns="http://www.w3.org/2000/svg"
+            className={`w-6 h-6 ${
+              isDark ? "text-[#CC8B65]" : "text-white/50 hover:text-white"
+            }`}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+            role="button"
+            aria-label="Mode sombre"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"
+            />
+          </svg>
         </div>
-        <div className="mt-32">
-          <Chrono />
+
+        <div className="relative z-10">
+          <Intro />
+          <div className="mt-32">
+            <Resume />
+          </div>
+          <div className="mt-32">
+            <Chrono />
+          </div>
+          <TableExperience />
+          <Soft />
+          <Projet />
+          <MesMotivations />
+          <DesignPatterns />
+          <VeilleTechno />
+          <ProcessusDeveloppement setIsMatrix={setIsMatrix} />
+          <div className="mt-32">
+            <Footer />
+          </div>
         </div>
-        <TableExperience />
-        <Soft />
-        <Projet />
       </div>
     </>
   );
