@@ -20,7 +20,7 @@ const InfoProjet = [
     description:
       "Une application pour consulter les scores nutritionnels de produits alimentaires via l'API Open Food Fact. Recherche, scan, et bibliothèque de favoris.",
     link: `https://github.com/nowaklouis/Wild-Food-Facts`,
-    img: "/Wild Food Fact.png",
+    img: "/Wild Food fact.png",
   },
   {
     id: 3,
